@@ -1,0 +1,32 @@
+img {
+  width: 100%;
+  height: 600px;
+}
+
+.search-card {
+  width: 777px;
+  height: 247px;
+  background-color: #d9d9d9;
+  opacity: 90%;
+  padding: 30px;
+  margin-top: -150px;
+  margin-left: 75px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+}
+
+.offers-cards {
+  margin-top: 50px;
+  margin-left: 80px;
+}
+
+.car-offers-card {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  column-gap: -60px;
+}
+
+.card {
+  max-height: 500px;
+}
