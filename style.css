@@ -3,16 +3,85 @@ img {
   height: 600px;
 }
 
+.overlay-text {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 62px;
+  color: #f56f18;
+  width: 777px;
+}
+
+.search-overlay-txt {
+  font-family: "Jersey 25", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  position: absolute;
+  top: 64%;
+  left: 10%;
+  color: #f46f18;
+}
+
+#brand,
+#model,
+#productionDate,
+#price {
+  width: 300px;
+  background-color: #cca076;
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+#brand,
+#productionDate {
+  margin-left: 30px;
+}
+
+#model,
+#brand {
+  margin-top: 30px;
+}
+#productionDate,
+#price {
+  margin-top: 40px;
+}
+
+#model,
+#price {
+  margin-left: 50px;
+}
+
+#searchBtn {
+  position: absolute;
+  top: 720px;
+  left: 490px;
+  width: 300px;
+  padding: 15px;
+  margin-top: -5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  background-color: #f46f18;
+  border: none;
+}
+
 .search-card {
   width: 777px;
-  height: 247px;
+  height: 315px;
   background-color: #d9d9d9;
-  opacity: 90%;
+  opacity: 95%;
   padding: 30px;
-  margin-top: -150px;
+  margin-top: -170px;
   margin-left: 75px;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .offers-cards {
