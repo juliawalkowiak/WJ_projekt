@@ -1,6 +1,6 @@
 img {
   width: 100%;
-  height: 600px;
+  height: 550px;
 }
 
 .overlay-text {
@@ -21,7 +21,7 @@ img {
   font-style: normal;
   font-size: 30px;
   position: absolute;
-  top: 64%;
+  top: 58%;
   left: 10%;
   color: #f46f18;
 }
@@ -31,7 +31,7 @@ img {
 #productionDate,
 #price {
   width: 300px;
-  background-color: #cca076;
+  background-color: #e8c4a2;
   border: none;
   border-radius: 5px;
   padding: 15px;
@@ -58,7 +58,7 @@ img {
 
 #searchBtn {
   position: absolute;
-  top: 720px;
+  top: 670px;
   left: 490px;
   width: 300px;
   padding: 15px;
@@ -72,8 +72,8 @@ img {
 .search-card {
   width: 777px;
   height: 315px;
-  background-color: #d9d9d9;
-  opacity: 95%;
+  background-color: #f9f5f5;
+  opacity: 99%;
   padding: 30px;
   margin-top: -170px;
   margin-left: 75px;
@@ -84,18 +84,7 @@ img {
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
-.offers-cards {
-  margin-top: 50px;
-  margin-left: 80px;
-}
-
-.car-offers-card {
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-evenly;
-  column-gap: -60px;
-}
-
 .card {
   max-height: 500px;
+  margin: 40px 10px 10px 10px;
 }
