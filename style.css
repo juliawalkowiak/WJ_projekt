@@ -88,3 +88,37 @@ img {
   max-height: 500px;
   margin: 40px 10px 10px 10px;
 }
+
+.order-config {
+  width: 800px;
+  height: 500px;
+  background-color: white;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  border-radius: 5px;
+  margin-top: 60px;
+}
+
+.order-card {
+  width: 400px;
+  height: 500px;
+  background-color: white;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  border-radius: 5px;
+  margin-top: 60px;
+}
+
+.order {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.financing-type {
+  padding: 40px 40px 20px 40px;
+}
+
+.customer-info{
+  padding: 20px 40px;
+}

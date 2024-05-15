@@ -73,7 +73,7 @@ function displayCars() {
           <div class="card-body">
             <h5 class="card-title">${car.brand}</h5>
             <p class="card-text">
-              ${car.productionDate} • ${car.milage} • ${car.horsepower}
+              ${car.productionDate} • ${car.milage} km • ${car.horsepower} kM
             </p>
             <a href="#" class="btn btn-primary btn-warning">Go somewhere</a>
           </div>
