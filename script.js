@@ -104,5 +104,41 @@ async function displayCarsAfterLoad() {
   });
   displayCars();
 }
+function addAccessory() {
+  let accessories = [
+    { name: "Powłoka ceramiczna", price: "35000" },
+    { name: "Powłoka kwarcowa", price: "20000" },
+    { name: "Niewidzialna wycieraczka", price: "4000" },
+    { name: "Ceramiczne zabezpieczenie felg", price: "8000" },
+    { name: "Folia PPF", price: "10000" },
+  ];
+
+  const accessoryList = document.getElementById("accessory-list");
+  const displayAccessories = document.getElementById("display-accessories");
+  const addAccessoryButton = document.getElementById("add-accessory");
+
+  accessories.forEach((accessory) => {
+    const option = document.createElement("option");
+    option.value = accessory.name;
+    option.textContent = accessory.name;
+    accessoryList.appendChild(option);
+  });
+ 
+  addAccessoryButton.addEventListener("click", () => {
+    const selectedAccessory = accessoryList.value;
+    const selectedAccessoryObj = accessories.find(
+      (accessory) => accessory.name === selectedAccessory
+    );
+
+    if (selectedAccessoryObj) {
+      const accessoryParagraph = document.createElement("p");
+      accessoryParagraph.textContent = `${selectedAccessory} (${selectedAccessoryObj.price} PLN)`;
+      displayAccessories.appendChild(accessoryParagraph);
+    }
+  });
+}
 
 displayCarsAfterLoad();
+window.onload=addAccessory;
+
+
