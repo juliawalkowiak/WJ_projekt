@@ -1,5 +1,6 @@
 let cars = [
   {
+    id: 1,
     brand: "BMW seria 5",
     price: "127000",
     productionDate: "2017",
@@ -9,6 +10,7 @@ let cars = [
       "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6Im83cmd6cHliNTc5OTMtT1RPTU9UT1BMIiwidyI6W3siZm4iOiJ3ZzRnbnFwNnkxZi1PVE9NT1RPUEwiLCJzIjoiMTYiLCJwIjoiMTAsLTEwIiwiYSI6IjAifV19.C9j1Y0rkZu3gi3PPEstkbntjn7I6HrEcV9NAke-DTyg/image;s=0x450;q=70",
   },
   {
+    id: 2,
     brand: "Abarth 595",
     price: "68000",
     productionDate: "2019",
@@ -18,6 +20,7 @@ let cars = [
       "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6IjZudjk5b215M3BrZDMtT1RPTU9UT1BMIiwidyI6W3siZm4iOiJ3ZzRnbnFwNnkxZi1PVE9NT1RPUEwiLCJzIjoiMTYiLCJwIjoiMTAsLTEwIiwiYSI6IjAifV19.002XzCBZKbomI9mkX6Kw06fld496NDASG7Cg02bhKCs/image;s=0x450;q=70",
   },
   {
+    id: 3,
     brand: "Audi A8",
     price: "254000",
     productionDate: "2019",
@@ -27,6 +30,7 @@ let cars = [
       "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6Ijg4c295NXdqOTAzMTItT1RPTU9UT1BMIiwidyI6W3siZm4iOiJ3ZzRnbnFwNnkxZi1PVE9NT1RPUEwiLCJzIjoiMTYiLCJwIjoiMTAsLTEwIiwiYSI6IjAifV19.6IHhmQtdKSO0513BNiTZiWsY_R7BE89jy9BupoRSOOo/image;s=0x450;q=70",
   },
   {
+    id: 4,
     brand: "Opel Astra IV",
     price: "125000",
     productionDate: "2024",
@@ -36,6 +40,7 @@ let cars = [
       "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6Im9wenVwZDhvMm96NjMtT1RPTU9UT1BMIiwidyI6W3siZm4iOiJ3ZzRnbnFwNnkxZi1PVE9NT1RPUEwiLCJzIjoiMTYiLCJwIjoiMTAsLTEwIiwiYSI6IjAifV19.VZ71MnRHMf2qemQHn7mHnJKxkLaWmJypw5ZC2H4B3ZI/image;s=0x450;q=70",
   },
   {
+    id: 5,
     brand: "Skoda Octavia",
     price: "72000",
     productionDate: "2020",
@@ -45,6 +50,7 @@ let cars = [
       "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6IjI1dTh3MXZycWN4by1PVE9NT1RPUEwiLCJ3IjpbeyJmbiI6IndnNGducXA2eTFmLU9UT01PVE9QTCIsInMiOiIxNiIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.2KP1aCDCb5roexL88raBCKVcEa4auo1MVrhYTx0HU0U/image;s=0x450;q=70",
   },
   {
+    id: 6,
     brand: "Mercedes Benz GLC Coupe",
     price: "289000",
     productionDate: "2024",
@@ -75,7 +81,7 @@ function displayCars() {
             <p class="card-text">
               ${car.productionDate} • ${car.milage} km • ${car.horsepower} kM
             </p>
-            <a href="#" class="btn btn-primary btn-warning">Go somewhere</a>
+            <button type="button" class="btn btn-primary" onclick="chooseCar(${car.id})">Wybierz</button>
           </div>
         </div>
      </div>
@@ -104,6 +110,38 @@ async function displayCarsAfterLoad() {
   });
   displayCars();
 }
+
+function chooseCar(carId) {
+  const url = new URL(window.location.href("index.html"));
+  url.searchParams.set("carId", carId);
+  window.location.href = url.toString();
+}
+
+function getChosenCarId() {
+  const url = new URL(window.location.href("order.html"));
+  return url.searchParams.get("carId");
+}
+
+function displayChosenCar() {
+  const carId = getChosenCarId();
+  const chosenCar = cars.find((car) => car.id === parseInt(carId));
+  if (chosenCar) {
+    const chosenCarCard = document.getElementById("chosen-car-card");
+    const carImage = document.createElement("img");
+    carImage.src = chosenCar.picture;
+    carImage.alt = chosenCar.brand;
+    carImage.classList.add("card-img-top");
+    chosenCarCard.innerHTML = "";
+    chosenCarCard.appendChild(carImage);
+    const carTitle = document.createElement("h5");
+    carTitle.textContent = chosenCar.brand;
+    chosenCarCard.appendChild(carText);
+  } else {
+    const chosenCarCard = document.getElementById("chosen-car-card");
+    chosenCarCard.innerHTML = "Nie wybrano samochodu.";
+  }
+}
+
 function addAccessory() {
   let accessories = [
     { name: "Powłoka ceramiczna", price: "35000" },
@@ -116,6 +154,8 @@ function addAccessory() {
   const accessoryList = document.getElementById("accessory-list");
   const displayAccessories = document.getElementById("display-accessories");
   const addAccessoryButton = document.getElementById("add-accessory");
+  let totalCost = document.getElementById("total-cost");
+  let total = 0;
 
   accessories.forEach((accessory) => {
     const option = document.createElement("option");
@@ -134,8 +174,13 @@ function addAccessory() {
       const accessoryParagraph = document.createElement("p");
       accessoryParagraph.textContent = `${selectedAccessory} (${selectedAccessoryObj.price} PLN)`;
       displayAccessories.appendChild(accessoryParagraph);
+      total += parseInt(selectedAccessoryObj.price); 
+      if (totalCost) {
+        totalCost.textContent = `${total} PLN`;
+      }
     }
   });
+
 }
 
 displayCarsAfterLoad();
