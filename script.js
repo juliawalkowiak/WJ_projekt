@@ -102,29 +102,38 @@ function displayCars() {
 
   let displayElement = document.querySelector("#cardDisplay");
   displayElement.innerHTML = carsHtml;
+  if (displayElement) {
+    displayElement.innerHTML = carsHtml;
+  }
 }
 
-async function displayCarsAfterLoad() {
-  await new Promise((resolve) => {
-    document.addEventListener("DOMContentLoaded", resolve);
-  });
-  displayCars();
+
+function searchCar(car) {
+
+
+
 }
 
 function chooseCar(carId) {
-  const url = new URL(window.location.href("index.html"));
-  url.searchParams.set("carId", carId);
-  window.location.href = url.toString();
+  const chosenCar = cars.find((car) => car.id === carId);
+  if (chosenCar) {
+    const url = new URL("order.html", window.location.href);
+    url.searchParams.set("carId", carId);
+    url.searchParams.set("carBrand", chosenCar.brand);
+    url.searchParams.set("carPrice", chosenCar.price);
+    window.location.assign(url.toString());
+  }
 }
 
 function getChosenCarId() {
-  const url = new URL(window.location.href("order.html"));
+  const url = new URL(window.location.href);
   return url.searchParams.get("carId");
 }
 
 function displayChosenCar() {
   const carId = getChosenCarId();
   const chosenCar = cars.find((car) => car.id === parseInt(carId));
+
   if (chosenCar) {
     const chosenCarCard = document.getElementById("chosen-car-card");
     const carImage = document.createElement("img");
@@ -135,26 +144,78 @@ function displayChosenCar() {
     chosenCarCard.appendChild(carImage);
     const carTitle = document.createElement("h5");
     carTitle.textContent = chosenCar.brand;
-    chosenCarCard.appendChild(carText);
+    chosenCarCard.appendChild(carTitle);
+    const carPrice = document.createElement("p");
+    carPrice.textContent = `Cena samochodu: ${chosenCar.price} PLN`;
+    chosenCarCard.appendChild(carPrice);
   } else {
     const chosenCarCard = document.getElementById("chosen-car-card");
     chosenCarCard.innerHTML = "Nie wybrano samochodu.";
   }
+  getChosenCarId();
 }
+
+//  function addAccessory() {
+//             let accessories = [
+//                 { name: "Powłoka ceramiczna", price: "35000" },
+//                 { name: "Powłoka kwarcowa", price: "20000" },
+//                 { name: "Niewidzialna wycieraczka", price: "4000" },
+//                 { name: "Ceramiczne zabezpieczenie felg", price: "8000" },
+//                 { name: "Folia PPF", price: "10000" },
+//             ];
+
+//             const accessoryList = document.getElementById("accessory-list");
+//             const displayAccessories = document.getElementById("display-accessories");
+//             const addAccessoryButton = document.getElementById("add-accessory");
+//             const displayAccessoriesSum = document.getElementById("accessories-total");
+//             let totalCost = document.getElementById("total-cost");
+//             let total = 0;
+
+//             accessories.forEach((accessory) => {
+//                 const option = document.createElement("option");
+//                 option.value = accessory.name;
+//                 option.textContent = accessory.name;
+//                 accessoryList.appendChild(option);
+//             });
+
+//             addAccessoryButton.addEventListener("click", () => {
+//                 const selectedAccessory = accessoryList.value;
+//                 const selectedAccessoryObj = accessories.find(
+//                     (accessory) => accessory.name === selectedAccessory
+//                     );
+
+//                     if (selectedAccessoryObj) {
+//                         const accessoryParagraph = document.createElement("p");
+//                         accessoryParagraph.textContent = `${selectedAccessory} (${selectedAccessoryObj.price} PLN)`;
+//                         displayAccessories.appendChild(accessoryParagraph);
+//                         total += parseInt(selectedAccessoryObj.price);
+//                         if (totalCost) {
+//                             totalCost.textContent = `${total} PLN`;
+//                         }
+//                         const accessoriesSum = document.createElement("p");
+//                         accessoriesSum.textContent = `${selectedAccessory} ${selectedAccessory.price} PLN`;
+//                         displayAccessoriesSum.appendChild(accessoriesSum);
+//                         if (totalCost) {
+//                           totalCost.textContent = `${total} PLN`;
+//                         }
+
+//                     }
+//                 });
+//  }
 
 function addAccessory() {
   let accessories = [
-    { name: "Powłoka ceramiczna", price: "35000" },
-    { name: "Powłoka kwarcowa", price: "20000" },
-    { name: "Niewidzialna wycieraczka", price: "4000" },
-    { name: "Ceramiczne zabezpieczenie felg", price: "8000" },
-    { name: "Folia PPF", price: "10000" },
+    { name: "Powłoka ceramiczna", price:"35000" },
+    { name: "Powłoka kwarcowa", price:"20000" },
+    { name: "Niewidzialna wycieraczka", price:"4000" },
+    { name: "Ceramiczne zabezpieczenie felg", price:"8000" },
+    { name: "Folia PPF", price:"10000" },
   ];
 
   const accessoryList = document.getElementById("accessory-list");
   const displayAccessories = document.getElementById("display-accessories");
   const addAccessoryButton = document.getElementById("add-accessory");
-  let totalCost = document.getElementById("total-cost");
+  const totalCostElement = document.getElementById("total-cost");
   let total = 0;
 
   accessories.forEach((accessory) => {
@@ -163,7 +224,7 @@ function addAccessory() {
     option.textContent = accessory.name;
     accessoryList.appendChild(option);
   });
- 
+
   addAccessoryButton.addEventListener("click", () => {
     const selectedAccessory = accessoryList.value;
     const selectedAccessoryObj = accessories.find(
@@ -174,16 +235,67 @@ function addAccessory() {
       const accessoryParagraph = document.createElement("p");
       accessoryParagraph.textContent = `${selectedAccessory} (${selectedAccessoryObj.price} PLN)`;
       displayAccessories.appendChild(accessoryParagraph);
-      total += parseInt(selectedAccessoryObj.price); 
-      if (totalCost) {
-        totalCost.textContent = `${total} PLN`;
-      }
+      total += parseInt(selectedAccessoryObj.price);
+      totalCostElement.textContent = `${total} PLN`;
+      displayTotalCost();
     }
   });
+}
 
+
+function displayTotalCost() {
+  const carId = getChosenCarId();
+  const chosenCar = cars.find((car) => car.id === parseInt(carId));
+
+  if (chosenCar) {
+    const carPrice = parseInt(chosenCar.price);
+    const accessories = document.querySelectorAll("#display-accessories p");
+    let accessoriesPrice = 0;
+
+    accessories.forEach((accessory) => {
+      const priceString = accessory.textContent.match(/\d+/)[0]; // extract only the numeric part
+      const price = parseInt(priceString);
+      accessoriesPrice += price;
+    });
+    const totalCost = carPrice + accessoriesPrice;
+    const totalCostElement = document.getElementById("car-total-cost");
+
+    try {
+      if (totalCostElement) {
+        totalCostElement.textContent = `Całkowity koszt: ${totalCost} PLN`;
+      }
+    } catch (error) {
+      console.error("Error setting total cost:", error);
+    }
+  } else {
+    const totalCostElement = document.getElementById("car-total-cost");
+
+    try {
+      if (totalCostElement) {
+        totalCostElement.textContent = "Nie wybrano samochodu.";
+      }
+    } catch (error) {
+      console.error("Error setting total cost:", error);
+    }
+  }
+}
+
+
+async function displayCarsAfterLoad() {
+  await new Promise((resolve) => {
+    document.addEventListener("DOMContentLoaded", resolve);
+  });
+  displayCars();
+}
+
+async function displayDetailsAfterLoad() {
+  await new Promise((resolve) => {
+    document.addEventListener("DOMContentLoaded", resolve);
+  });
+  displayChosenCar();
+  addAccessory();
 }
 
 displayCarsAfterLoad();
-window.onload=addAccessory;
-
+displayDetailsAfterLoad();
 
