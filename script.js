@@ -69,33 +69,33 @@ function displayCars() {
 
   cars.forEach(function (car) {
     rowHtml += `
-    <div class="col-4">
-    <div class="card">
-          <img
-            src="${car.picture}"
-            class="card-img-top"
-            alt="..."
-          />
-          <div class="card-body">
-            <h5 class="card-title">${car.brand}</h5>
-            <p class="card-text">
-              ${car.productionDate} • ${car.milage} km • ${car.horsepower} kM
-            </p>
-            <button type="button" class="btn btn-primary" onclick="chooseCar(${car.id})">Wybierz</button>
-          </div>
+        <div class="col-4">
+        <div class="card">
+        <img
+        src="${car.picture}"
+        class="card-img-top"
+        alt="..."
+        />
+        <div class="card-body">
+        <h5 class="card-title">${car.brand}</h5>
+        <p class="card-text">
+        ${car.productionDate} • ${car.milage} km • ${car.horsepower} kM
+        </p>
+        <button type="button" class="btn btn-primary" onclick="chooseCar(${car.id})">Wybierz</button>
         </div>
-     </div>
-    
-    `;
+        </div>
+        </div>
+        
+        `;
 
     count++;
 
     if (count % 3 === 0 || count === cars.length) {
       carsHtml += `
-      <div class="row car-offers-card">
-        ${rowHtml}
-      </div>
-      `;
+            <div class="row car-offers-card">
+            ${rowHtml}
+            </div>
+            `;
       rowHtml = "";
     }
   });
@@ -106,13 +106,28 @@ function displayCars() {
     displayElement.innerHTML = carsHtml;
   }
 }
+function searchCar() {
+  const brandInput = document.getElementById("brand");
+  const brand = brandInput.value.toLowerCase();
+  const carCards = document.querySelectorAll("#cardDisplay .card");
 
-
-function searchCar(car) {
-
-
-
+  carCards.forEach(function (carCard) {
+    const carBrand = carCard
+      .querySelector(".card-title")
+      .textContent.toLowerCase();
+    if (carBrand.includes(brand)) {
+      carCard.style.display = "flex";
+      carCard.style.justifyContent = "flex-start";
+    } else {
+      carCard.style.display = "none";
+    }
+  });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const searchBtn = document.getElementById("searchCarBtn");
+  searchBtn.addEventListener("click", searchCar);
+});
 
 function chooseCar(carId) {
   const chosenCar = cars.find((car) => car.id === carId);
@@ -155,61 +170,13 @@ function displayChosenCar() {
   getChosenCarId();
 }
 
-//  function addAccessory() {
-//             let accessories = [
-//                 { name: "Powłoka ceramiczna", price: "35000" },
-//                 { name: "Powłoka kwarcowa", price: "20000" },
-//                 { name: "Niewidzialna wycieraczka", price: "4000" },
-//                 { name: "Ceramiczne zabezpieczenie felg", price: "8000" },
-//                 { name: "Folia PPF", price: "10000" },
-//             ];
-
-//             const accessoryList = document.getElementById("accessory-list");
-//             const displayAccessories = document.getElementById("display-accessories");
-//             const addAccessoryButton = document.getElementById("add-accessory");
-//             const displayAccessoriesSum = document.getElementById("accessories-total");
-//             let totalCost = document.getElementById("total-cost");
-//             let total = 0;
-
-//             accessories.forEach((accessory) => {
-//                 const option = document.createElement("option");
-//                 option.value = accessory.name;
-//                 option.textContent = accessory.name;
-//                 accessoryList.appendChild(option);
-//             });
-
-//             addAccessoryButton.addEventListener("click", () => {
-//                 const selectedAccessory = accessoryList.value;
-//                 const selectedAccessoryObj = accessories.find(
-//                     (accessory) => accessory.name === selectedAccessory
-//                     );
-
-//                     if (selectedAccessoryObj) {
-//                         const accessoryParagraph = document.createElement("p");
-//                         accessoryParagraph.textContent = `${selectedAccessory} (${selectedAccessoryObj.price} PLN)`;
-//                         displayAccessories.appendChild(accessoryParagraph);
-//                         total += parseInt(selectedAccessoryObj.price);
-//                         if (totalCost) {
-//                             totalCost.textContent = `${total} PLN`;
-//                         }
-//                         const accessoriesSum = document.createElement("p");
-//                         accessoriesSum.textContent = `${selectedAccessory} ${selectedAccessory.price} PLN`;
-//                         displayAccessoriesSum.appendChild(accessoriesSum);
-//                         if (totalCost) {
-//                           totalCost.textContent = `${total} PLN`;
-//                         }
-
-//                     }
-//                 });
-//  }
-
 function addAccessory() {
   let accessories = [
-    { name: "Powłoka ceramiczna", price:"35000" },
-    { name: "Powłoka kwarcowa", price:"20000" },
-    { name: "Niewidzialna wycieraczka", price:"4000" },
-    { name: "Ceramiczne zabezpieczenie felg", price:"8000" },
-    { name: "Folia PPF", price:"10000" },
+    { name: "Powłoka ceramiczna", price: "35000" },
+    { name: "Powłoka kwarcowa", price: "20000" },
+    { name: "Niewidzialna wycieraczka", price: "4000" },
+    { name: "Ceramiczne zabezpieczenie felg", price: "8000" },
+    { name: "Folia PPF", price: "10000" },
   ];
 
   const accessoryList = document.getElementById("accessory-list");
@@ -241,7 +208,6 @@ function addAccessory() {
     }
   });
 }
-
 
 function displayTotalCost() {
   const carId = getChosenCarId();
@@ -280,7 +246,6 @@ function displayTotalCost() {
   }
 }
 
-
 async function displayCarsAfterLoad() {
   await new Promise((resolve) => {
     document.addEventListener("DOMContentLoaded", resolve);
@@ -298,4 +263,3 @@ async function displayDetailsAfterLoad() {
 
 displayCarsAfterLoad();
 displayDetailsAfterLoad();
-

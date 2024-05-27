@@ -56,7 +56,7 @@ img {
   margin-left: 50px;
 }
 
-#searchBtn {
+#searchCarBtn {
   position: absolute;
   top: 670px;
   left: 490px;
@@ -147,4 +147,8 @@ img {
 
 #chosen-car-card {
   height: 200px;
+}
+
+.car-offers-card {
+  display: flex;
 }
