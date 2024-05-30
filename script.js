@@ -85,7 +85,7 @@ function displayCars() {
         </div>
         </div>
         </div>
-        
+
         `;
 
     count++;
@@ -106,6 +106,7 @@ function displayCars() {
     displayElement.innerHTML = carsHtml;
   }
 }
+
 function searchCar() {
   const brandInput = document.getElementById("brand");
   const brand = brandInput.value.toLowerCase();
@@ -116,7 +117,7 @@ function searchCar() {
       .querySelector(".card-title")
       .textContent.toLowerCase();
     if (carBrand.includes(brand)) {
-      carCard.style.display = "flex";
+      carCard.style.display = "float";
       carCard.style.justifyContent = "flex-start";
     } else {
       carCard.style.display = "none";
@@ -170,6 +171,17 @@ function displayChosenCar() {
   getChosenCarId();
 }
 
+function selectDeliveryDate() {
+  let currentTime = new Date();
+  let deliveryDate = new Date(currentTime.getTime() + 14 * 24 * 60 * 60 * 1000);
+  const deliveryDateElement = document.getElementById("delivery-date");
+  deliveryDateElement.innerHTML = deliveryDate.toLocaleDateString("pl-PL", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
 function addAccessory() {
   let accessories = [
     { name: "Powłoka ceramiczna", price: "35000" },
@@ -208,6 +220,15 @@ function addAccessory() {
     }
   });
 }
+
+function deleteAccessory() {
+  window.location.reload();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const deleteBtn = document.getElementById("delete-accessory");
+  deleteBtn.addEventListener("click", deleteAccessory);
+});
 
 function displayTotalCost() {
   const carId = getChosenCarId();
@@ -259,7 +280,63 @@ async function displayDetailsAfterLoad() {
   });
   displayChosenCar();
   addAccessory();
+  selectDeliveryDate();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  function storeOrderData() {
+    const nameInput = document.getElementById("firstName");
+    const surnameInput = document.getElementById("surname");
+    const deliveryDateInput = document.getElementById("delivery-date");
+    const totalCostElement = document.getElementById("car-total-cost");
+    
+    const name = nameInput.value;
+    const surname = surnameInput.value;
+    const deliveryDate = deliveryDateInput.textContent;
+    const totalCost = totalCostElement.textContent.replace(" PLN", "");
+   
+
+    const orderData = {
+      name,
+      surname,
+      deliveryDate,
+      totalCost,
+    };
+
+    localStorage.setItem("orderData", JSON.stringify(orderData));}
+ 
+
+  function displayOrderData() {
+    const nameElement = document.querySelector("#name");
+    const deliveryDateElement = document.getElementById("deliveryDate");
+    const orderSumFinalElement = document.getElementById("orderSumFinal");
+
+    const storedOrderData = localStorage.getItem("orderData");
+    if (storedOrderData) {
+      const orderData = JSON.parse(storedOrderData);
+      nameElement.textContent = orderData.name;
+      deliveryDateElement.textContent = orderData.deliveryDate;
+      orderSumFinalElement.textContent = orderData.totalCost + " PLN";
+      
+    } else {
+      console.log("No order data found in localStorage");
+    }
+  }
+
+  const init = function () {
+    if (document.URL.includes("order.html")) {
+      const finalizeBtn = document.getElementById("finalize-btn");
+      finalizeBtn.addEventListener("click", function () {
+        storeOrderData();
+        window.location.href = "final.html";
+      });
+    } else if (document.URL.includes("final.html")) {
+      displayOrderData();
+    }
+  };
+
+  init();
+});
 
 displayCarsAfterLoad();
 displayDetailsAfterLoad();
