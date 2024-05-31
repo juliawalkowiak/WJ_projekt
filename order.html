@@ -56,7 +56,7 @@
         <div class="col-8">
           <div class="order-config">
             <div class="financing-type">
-              <p>Wybierz metodę finansowania</p>
+              <p class="choice">Wybierz metodę finansowania</p>
               <div class="row">
                 <div class="col-4">
                   <input type="radio" id="cash" name="payment" value="Gotówka"/>
@@ -69,23 +69,23 @@
               </div>
               </div>
               <div class="customer-info">
-                <p>Wypełnij dane zamówienia</p>
+                <p class="choice">Wypełnij dane zamówienia</p>
                 <div class="row">
                 <div class="col-4">
                 <ul>Imię</ul>
                 <ul>Nazwisko</ul>
-                <ul>Miejsce odbioru </ul>
+                
                 <ul>Data odbioru</ul></div>
                 <div class="col-4">
                     <ul><input type="text" id="firstName" name="name" required/></ul>
                     <ul><input type="text"id="surname" name="surname" required/></ul>
-                    <ul><input type="text"/></ul>
+            
                     <ul><p id="delivery-date"></p></ul>
                 </div>
                 </div>
               </div>
               <div class="customize">
-                <p>Wybierz akcesoria</p>
+                <p class="choice">Wybierz akcesoria (conajmniej jedno)</p>
                 <select id="accessory-list">
                     <option>Dostępne akcesoria</option>
                 </select>
@@ -101,7 +101,7 @@
         <div class="col-4">
           <div class="order-card">
             <div class="order-confirm-card">
-                <p>Szczegóły zamówienia</p>
+                <p id="details" >Szczegóły zamówienia</p>
                 <div class="card"  id="chosen-car-card">
                  <img id="chosen-car-picture"src="https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6Im83cmd6cHliNTc5OTMtT1RPTU9UT1BMIiwidyI6W3siZm4iOiJ3ZzRnbnFwNnkxZi1PVE9NT1RPUEwiLCJzIjoiMTYiLCJwIjoiMTAsLTEwIiwiYSI6IjAifV19.C9j1Y0rkZu3gi3PPEstkbntjn7I6HrEcV9NAke-DTyg/image;s=0x450;q=70" class="card-img-top" alt="...">
                  <div class="card-body">
@@ -110,7 +110,7 @@
               </div> <br> <br> <br> <br>
               
               <div id="car-total-cost">Całkowity koszt: </div>
-              <button id="finalize-btn">Potwierdź Zakup</button>
+              <button id="finalize-btn">Potwierdź zakup</button>
             </div>
 
           </div>

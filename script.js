@@ -289,12 +289,11 @@ async function displayDetailsAfterLoad() {
 //     const surnameInput = document.getElementById("surname");
 //     const deliveryDateInput = document.getElementById("delivery-date");
 //     const totalCostElement = document.getElementById("car-total-cost");
-    
+
 //     const name = nameInput.value;
 //     const surname = surnameInput.value;
 //     const deliveryDate = deliveryDateInput.textContent;
 //     const totalCost = totalCostElement.textContent.replace(" PLN", "");
-   
 
 //     const orderData = {
 //       name,
@@ -304,7 +303,6 @@ async function displayDetailsAfterLoad() {
 //     };
 
 //     localStorage.setItem("orderData", JSON.stringify(orderData));}
- 
 
 //   function displayOrderData() {
 //     const nameElement = document.querySelector("#name");
@@ -317,7 +315,7 @@ async function displayDetailsAfterLoad() {
 //       nameElement.textContent = orderData.name;
 //       deliveryDateElement.textContent = orderData.deliveryDate;
 //       orderSumFinalElement.textContent = orderData.totalCost + " PLN";
-      
+
 //     } else {
 //       console.log("No order data found in localStorage");
 //     }
@@ -338,43 +336,41 @@ async function displayDetailsAfterLoad() {
 //   init();
 // });
 
-
 document.addEventListener("DOMContentLoaded", function () {
-  
-    function storeOrderData() {
-      const nameInput = document.getElementById("firstName");
-      const surnameInput = document.getElementById("surname");
-      const deliveryDateInput = document.getElementById("delivery-date");
-      const totalCostElement = document.getElementById("car-total-cost");
-      const paymentMethodInput = document.querySelector(
-        'input[name="payment"]:checked'
-      );
-      const carImageElement = document.getElementById("chosen-car-picture");
+  function storeOrderData() {
+    const nameInput = document.getElementById("firstName");
+    const surnameInput = document.getElementById("surname");
+    const deliveryDateInput = document.getElementById("delivery-date");
+    const totalCostElement = document.getElementById("car-total-cost");
+    const paymentMethodInput = document.querySelector(
+      'input[name="payment"]:checked'
+    );
+    const carImageElement = document.getElementById("chosen-car-picture");
 
-      const name = nameInput.value;
-      const surname = surnameInput.value;
-      const deliveryDate = deliveryDateInput.textContent;
-      const totalCost = totalCostElement.textContent.replace(" PLN", "");
-      const paymentMethod = paymentMethodInput.value;
+    const name = nameInput.value;
+    const surname = surnameInput.value;
+    const deliveryDate = deliveryDateInput.textContent;
+    const totalCost = totalCostElement.textContent.replace(" PLN", "");
+    const paymentMethod = paymentMethodInput.value;
 
-      let carImageUrl;
-      if (carImageElement) {
-        carImageUrl = carImageElement.src;
-      } else {
-        carImageUrl = "";
-      }
-
-      const orderData = {
-        name,
-        surname,
-        deliveryDate,
-        totalCost,
-        paymentMethod,
-        carImageUrl,
-      };
-
-      localStorage.setItem("orderData", JSON.stringify(orderData));
+    let carImageUrl;
+    if (carImageElement) {
+      carImageUrl = carImageElement.src;
+    } else {
+      carImageUrl = "";
     }
+
+    const orderData = {
+      name,
+      surname,
+      deliveryDate,
+      totalCost,
+      paymentMethod,
+      carImageUrl,
+    };
+
+    localStorage.setItem("orderData", JSON.stringify(orderData));
+  }
 
   function displayOrderData() {
     const nameElement = document.querySelector("#name");
@@ -392,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
       paymentMethodElement.textContent =
         "Metoda płatności: " + orderData.paymentMethod;
       if (orderData.carImageUrl) {
-        carImageElement.src = orderData.carImageUrl;
+        carImageElement.src = window.location.origin + orderData.carImageUrl;
         carImageElement.style.display = "block";
       } else {
         carImageElement.style.display = "none";
@@ -410,13 +406,12 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "final.html";
       });
     } else if (document.URL.includes("final.html")) {
-      displayOrderData();
+      setTimeout(displayOrderData, 100);
     }
   };
 
   init();
 });
-
 
 displayCarsAfterLoad();
 displayDetailsAfterLoad();
