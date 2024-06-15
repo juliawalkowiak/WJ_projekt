@@ -13,7 +13,7 @@ ul {
 }
 .overlay-text {
   position: absolute;
-  top: 20%;
+  top: 10%;
   left: 5%;
   font-family: "Jersey 25", sans-serif;
   font-weight: 400;
@@ -21,17 +21,6 @@ ul {
   font-size: 62px;
   color: #f56f18;
   width: 777px;
-}
-
-.search-overlay-txt {
-  font-family: "Jersey 25", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 30px;
-  position: absolute;
-  top: 58%;
-  left: 10%;
-  color: #f46f18;
 }
 
 #brand,
@@ -103,7 +92,7 @@ ul {
 }
 
 .card {
-  max-height: 500px;
+  max-height: 600px;
   margin: 40px 10px 10px 10px;
 }
 
@@ -275,8 +264,8 @@ ul {
   text-align: center;
 }
 
-/* .order-final-details {
-  display: flex;
-  margin: 100px;
-  justify-content: space-evenly;
-} */
+@media screen and (min-width:1920px) and (max-width: 2700px) {
+  .card {
+    max-height: 700px;
+  }
+}
